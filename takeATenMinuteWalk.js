@@ -17,5 +17,27 @@ It will never give you an empty array (that's not a walk, that's standing still!
 */
 
 function isValidWalk(walk) {
-  //insert brilliant code here
+  // early return if the walk isn't 10 minutes long
+  if (walk.length !== 10) {
+    return false;
+  }
+
+  // create an object to store each direction and how many times that direction was taken
+  const directions = { n: 0, s: 0, w: 0, e: 0 };
+  for (let direction of walk) {
+    directions[direction] = directions[direction] + 1;
+  }
+
+  // if the walk goes north x amount of times
+  // then they must go south x amount of times to return home.
+  // same goes with east and west.
+  if (directions.n !== directions.s) {
+    return false;
+  }
+  if (directions.w !== directions.e) {
+    return false;
+  }
+  return true;
 }
+
+console.log(isValidWalk(["n", "s", "n", "s", "n", "s", "n", "s", "n", "e"]));
